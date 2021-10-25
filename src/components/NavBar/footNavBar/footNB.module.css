@@ -1,0 +1,7 @@
+.wrapper{
+    padding: 1px;
+}
+.names{
+    display:flex;
+    margin: 10px;
+}
