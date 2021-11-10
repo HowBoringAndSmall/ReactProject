@@ -1,7 +1,5 @@
-const ADD_POST = 'ADD-POST'
-const UPDATE_POST = 'UPDATE-POST'
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_MESSAGE = 'UPDATE-MESSAGE'
+import DialogReducer from "./dialogs-reducer"
+import ProfileReducer from "./profile-reducer"
 
 
 let store = {
@@ -48,37 +46,13 @@ let store = {
         this._callSub = callback
     },
     dispatch(action) {
-        if(action.type === ADD_POST ){
-            let newPost = {
-                id: 5,
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            }
-            this._state.profilePage.postData.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSub(this._state);
-        } else if(action.type=== UPDATE_POST){
-            this._state.profilePage.newPostText = action.text;
-            this._callSub(this._state);
-        } else if(action.type === ADD_MESSAGE){
-            let newMessage = {
-                id: 4,
-                message: this._state.messagesPage.newMessageText
-            }
-            this._state.messagesPage.messagesData.push(newMessage); 
-            this._state.messagesPage.newMessageText = '';
-            this._callSub(this._state);
-        } else if(action.type === UPDATE_MESSAGE){
-            this._state.messagesPage.newMessageText = action.text;
-            this._callSub(this._state);
-        }
+
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+
+        this._state.messagesPage = DialogReducer(this._state.messagesPage, action)
+
+
+        this._callSub(this._state)
     }
 }
-
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const updatePostActionCreater = (text) =>({type: UPDATE_POST, text: text});
-
-export const addMessageActionCreator = () =>({type:ADD_MESSAGE})
-export const updateMessageActionCreator = (text) =>({type:UPDATE_MESSAGE, text: text})
-
 export default store;
