@@ -3,6 +3,8 @@ import MyPosts from './MyPosts/MyPosts';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = (props) =>{
+    console.log(1)
+    console.log(props.state)
     return(
         <div className={s.content}>
             <ProfileInfo />
