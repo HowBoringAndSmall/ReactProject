@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD-POST'
 const UPDATE_POST = 'UPDATE-POST'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_MESSAGE = 'UPDATE-MESSAGE'
 
 
 let store = {
@@ -22,10 +24,11 @@ let store = {
             ],
             messagesData:[
                 {id: 1, message: "Prive"},
-                {id: 1, message: "Prive"},
-                {id: 1, message: "Prive"},
-                {id: 1, message: "Prive"}
-            ]
+                {id: 2, message: "Prive"},
+                {id: 3, message: "Prive"},
+                {id: 4, message: "Prive"}
+            ],
+            newMessageText: 'Hello'
         },
         sidebar:{
             friends: [
@@ -57,22 +60,25 @@ let store = {
         } else if(action.type=== UPDATE_POST){
             this._state.profilePage.newPostText = action.text;
             this._callSub(this._state);
+        } else if(action.type === ADD_MESSAGE){
+            let newMessage = {
+                id: 4,
+                message: this._state.messagesPage.newMessageText
+            }
+            this._state.messagesPage.messagesData.push(newMessage); 
+            this._state.messagesPage.newMessageText = '';
+            this._callSub(this._state);
+        } else if(action.type === UPDATE_MESSAGE){
+            this._state.messagesPage.newMessageText = action.text;
+            this._callSub(this._state);
         }
     }
 }
 
-export const addPostActionCreator = () =>{
-    return{
-        type: ADD_POST
-    }
-}
+export const addPostActionCreator = () => ({type: ADD_POST});
+export const updatePostActionCreater = (text) =>({type: UPDATE_POST, text: text});
 
-export const updatePostActionCreater = (text) =>{
-    return{
-        type: UPDATE_POST,
-        text: text
-    }
-}
-
+export const addMessageActionCreator = () =>({type:ADD_MESSAGE})
+export const updateMessageActionCreator = (text) =>({type:UPDATE_MESSAGE, text: text})
 
 export default store;

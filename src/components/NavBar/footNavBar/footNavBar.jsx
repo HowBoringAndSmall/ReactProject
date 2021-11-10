@@ -3,7 +3,6 @@ import Friends from "./Friends/Friends"
 
 const FootNavBar = (props) =>{
     let friendsData = props.friends.map(el=><Friends name={el.name} />)
-    console.log(friendsData)
     return(
         <div className={s.wrapper}>
             <h1>Friends</h1>
